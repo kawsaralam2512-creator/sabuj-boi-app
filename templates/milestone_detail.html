@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}{{ milestone.category }} — অনুমোদনের সীমা{% endblock %}
+
+{% block content %}
+
+<!-- Breadcrumb -->
+<nav class="breadcrumb-nav">
+    <div class="breadcrumb-container">
+        <a href="/" class="breadcrumb-link">🏠 হোম</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="/milestones" class="breadcrumb-link">🎯 অনুমোদনের সীমা</a>
+        <span class="breadcrumb-sep">›</span>
+        <span class="breadcrumb-current">{{ milestone.category }}</span>
+    </div>
+</nav>
+
+<article class="milestone-detail-section">
+
+    <!-- Header -->
+    <div class="milestone-detail-header">
+        <div class="milestone-detail-badges">
+            <span class="milestone-detail-badge">🎯 {{ milestone.category }}</span>
+            <span class="milestone-detail-badge">{{ milestone.limit }}</span>
+        </div>
+        <h1 class="milestone-detail-title">{{ milestone.category }}</h1>
+    </div>
+
+    <!-- Approver -->
+    <div class="milestone-detail-block">
+        <h2 class="milestone-detail-block-title">✅ অনুমোদনকারী</h2>
+        <p class="milestone-detail-block-text">{{ milestone.approver }}</p>
+    </div>
+
+    <!-- Requirements -->
+    {% if milestone.requirements %}
+        <div class="milestone-detail-block">
+            <h2 class="milestone-detail-block-title">📋 শর্তাবলী</h2>
+            <ul class="milestone-detail-block-list">
+                {% for req in milestone.requirements %}
+                    <li>{{ req }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <!-- Time -->
+    {% if milestone.time %}
+        <div class="milestone-detail-block">
+            <h2 class="milestone-detail-block-title">⏰ সময়সীমা</h2>
+            <p class="milestone-detail-block-text">{{ milestone.time }}</p>
+        </div>
+    {% endif %}
+
+    <!-- Note -->
+    {% if milestone.note %}
+        <div class="fund-warning" style="margin-bottom: 20px;">{{ milestone.note }}</div>
+    {% endif %}
+
+    <!-- Back -->
+    <div style="text-align: center; margin-top: 25px;">
+        <a href="/milestones" class="section-back-btn">← সব অনুমোদনের সীমা</a>
+    </div>
+
+</article>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}লগইন — সবুজ বই{% endblock %}
+
+{% block content %}
+
+<div class="login-page-modern">
+    <div class="login-card-modern">
+
+        <div class="login-icon-modern">🔐</div>
+
+        <h1 class="login-title-modern">অ্যাডমিন লগইন</h1>
+        <p class="login-subtitle-modern">
+            বিবিধ সেকশনে তথ্য যোগ করতে লগইন করুন
+        </p>
+
+        <form method="POST" class="login-form-modern">
+            <label for="password" class="form-label">
+                🔑 পাসওয়ার্ড
+            </label>
+            <input type="password" id="password" name="password" required
+                   class="login-input-modern"
+                   placeholder="আপনার পাসওয়ার্ড দিন"
+                   autofocus>
+
+            <button type="submit" class="login-submit-modern">
+                প্রবেশ করুন
+            </button>
+        </form>
+
+        <a href="/" class="login-back-link">← হোমে ফিরে যান</a>
+
+    </div>
+</div>
+
+{% endblock %}

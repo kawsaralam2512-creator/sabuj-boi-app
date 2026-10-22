@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}{{ system.name }} — সিস্টেম{% endblock %}
+
+{% block content %}
+
+<!-- Breadcrumb -->
+<nav class="breadcrumb-nav">
+    <div class="breadcrumb-container">
+        <a href="/" class="breadcrumb-link">🏠 হোম</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="/systems" class="breadcrumb-link">🖥️ সিস্টেম</a>
+        <span class="breadcrumb-sep">›</span>
+        <span class="breadcrumb-current">{{ system.name }}</span>
+    </div>
+</nav>
+
+<article class="system-detail-section">
+
+    <!-- Header -->
+    <div class="system-detail-header">
+        <div class="system-detail-badges">
+            <span class="system-detail-badge">🖥️ {{ system.name }}</span>
+            {% if system.mandatory %}
+                <span class="system-detail-badge">⭐ বাধ্যতামূলক</span>
+            {% endif %}
+            <span class="system-detail-badge">📅 {{ system.launched }}</span>
+        </div>
+        <h1 class="system-detail-title">{{ system.bangla_name }}</h1>
+        <p class="system-detail-fullname">{{ system.full_name }}</p>
+    </div>
+
+    <!-- Purpose -->
+    <div class="system-detail-block">
+        <h2 class="system-detail-block-title">🎯 উদ্দেশ্য</h2>
+        <p class="system-detail-block-text">{{ system.purpose }}</p>
+    </div>
+
+    <!-- When to use -->
+    {% if system.when_to_use %}
+        <div class="system-detail-block">
+            <h2 class="system-detail-block-title">📅 কখন ব্যবহার করবেন</h2>
+            <p class="system-detail-block-text">{{ system.when_to_use }}</p>
+        </div>
+    {% endif %}
+
+    <!-- Key points -->
+    {% if system.key_points %}
+        <div class="system-detail-block">
+            <h2 class="system-detail-block-title">🔑 মূল বিষয়সমূহ</h2>
+            <ul class="system-detail-keypoints">
+                {% for point in system.key_points %}
+                    <li>{{ point }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <!-- Steps -->
+    {% if system.steps %}
+        <div class="system-detail-block">
+            <h2 class="system-detail-block-title">📝 ধাপে ধাপে</h2>
+            <ol class="system-detail-steps">
+                {% for step in system.steps %}
+                    <li>{{ step }}</li>
+                {% endfor %}
+            </ol>
+        </div>
+    {% endif %}
+
+    <!-- Warning -->
+    {% if system.warning %}
+        <div class="system-detail-warning" style="margin-bottom: 20px;">{{ system.warning }}</div>
+    {% endif %}
+
+    <!-- Responsible & Website -->
+    <div class="system-detail-block">
+        <h2 class="system-detail-block-title">📞 দায়িত্বপ্রাপ্ত</h2>
+        <p class="system-detail-block-text">{{ system.responsible }}</p>
+    </div>
+
+    {% if system.website %}
+        <div class="system-detail-block">
+            <h2 class="system-detail-block-title">🌐 ওয়েবসাইট</h2>
+            <a href="{{ system.website }}" target="_blank" class="system-detail-link">
+                🔗 {{ system.website }}
+            </a>
+        </div>
+    {% endif %}
+
+    <!-- Back -->
+    <div style="text-align: center; margin-top: 25px;">
+        <a href="/systems" class="section-back-btn">← সব সিস্টেম</a>
+    </div>
+
+</article>
+
+{% endblock %}
