@@ -1,0 +1,353 @@
+{% extends "base.html" %}
+
+{% block title %}{{ challenge.problem }} — চ্যালেঞ্জ #{{ challenge.id }}{% endblock %}
+
+{% block extra_css %}
+<style>
+/* ===== Challenge Detail — Modern Design ===== */
+.challenge-detail-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem 3rem;
+}
+
+/* Breadcrumb */
+.breadcrumb-nav { margin: 1.5rem auto; }
+.breadcrumb-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    flex-wrap: wrap;
+}
+.breadcrumb-link {
+    color: #059669;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+.breadcrumb-link:hover { background: #d1fae5; }
+.breadcrumb-sep { color: #94a3b8; }
+.breadcrumb-current { color: #475569; font-weight: 600; }
+
+/* Hero Header */
+.challenge-detail-hero {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-radius: 24px;
+    padding: 2.25rem 1.75rem;
+    margin-bottom: 1.75rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 6px 24px rgba(245, 158, 11, 0.15);
+}
+.challenge-detail-hero::before {
+    content: "⚠️";
+    position: absolute;
+    font-size: 11rem;
+    opacity: 0.08;
+    top: -30px;
+    right: -20px;
+    transform: rotate(-15deg);
+    pointer-events: none;
+}
+.challenge-detail-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+}
+.challenge-detail-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: rgba(255, 255, 255, 0.85);
+    color: #78350f;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(120, 53, 15, 0.08);
+}
+.challenge-detail-title {
+    font-size: clamp(1.35rem, 3.5vw, 1.95rem);
+    font-weight: 800;
+    color: #78350f;
+    margin: 0;
+    line-height: 1.35;
+    position: relative;
+    z-index: 1;
+}
+
+/* Info Blocks */
+.challenge-block {
+    display: flex;
+    gap: 1rem;
+    background: #fff;
+    border-radius: 16px;
+    padding: 1.4rem;
+    margin-bottom: 1rem;
+    border: 1.5px solid #e2e8f0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    animation: blockFade 0.45s ease both;
+}
+.challenge-block:nth-child(1) { animation-delay: 0.05s; }
+.challenge-block:nth-child(2) { animation-delay: 0.1s; }
+.challenge-block:nth-child(3) { animation-delay: 0.15s; }
+.challenge-block:nth-child(4) { animation-delay: 0.2s; }
+
+@keyframes blockFade {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.challenge-block:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+/* Block Icon */
+.challenge-block-icon {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    border-radius: 14px;
+    flex-shrink: 0;
+}
+
+/* Variants */
+.challenge-block.symptom     { border-left: 5px solid #3b82f6; }
+.challenge-block.symptom .challenge-block-icon {
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+}
+.challenge-block.consequence { border-left: 5px solid #ef4444; }
+.challenge-block.consequence .challenge-block-icon {
+    background: linear-gradient(135deg, #fef2f2, #fee2e2);
+}
+.challenge-block.solution    { border-left: 5px solid #10b981; }
+.challenge-block.solution .challenge-block-icon {
+    background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+}
+
+.challenge-block-content { flex: 1; min-width: 0; }
+.challenge-block-title {
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin: 0 0 0.5rem;
+}
+.challenge-block.symptom .challenge-block-title     { color: #1d4ed8; }
+.challenge-block.consequence .challenge-block-title { color: #dc2626; }
+.challenge-block.solution .challenge-block-title    { color: #047857; }
+
+.challenge-block-text {
+    font-size: 1.02rem;
+    color: #334155;
+    line-height: 1.75;
+    margin: 0;
+}
+
+/* Keywords */
+.challenge-keywords {
+    background: #f8fafc;
+    border-radius: 16px;
+    padding: 1.4rem;
+    margin-top: 1.5rem;
+    border: 1.5px dashed #cbd5e1;
+}
+.challenge-keywords-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #475569;
+    margin: 0 0 0.85rem;
+}
+.challenge-keywords-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+}
+.challenge-keyword-tag {
+    display: inline-block;
+    background: #fff;
+    color: #059669;
+    border: 1.5px solid #a7f3d0;
+    padding: 0.4rem 0.95rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+.challenge-keyword-tag:hover {
+    background: #059669;
+    color: #fff;
+    border-color: #059669;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+}
+
+/* Navigation (Prev/Next + Back) */
+.challenge-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+.challenge-nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.65rem 1.15rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: 1.5px solid transparent;
+}
+.challenge-nav-btn.primary {
+    background: #059669;
+    color: #fff;
+}
+.challenge-nav-btn.primary:hover {
+    background: #047857;
+    box-shadow: 0 6px 16px rgba(5, 150, 105, 0.3);
+}
+.challenge-nav-btn.ghost {
+    background: #fff;
+    color: #475569;
+    border-color: #e2e8f0;
+}
+.challenge-nav-btn.ghost:hover {
+    background: #f1f5f9;
+    border-color: #94a3b8;
+}
+.challenge-nav-btn:disabled,
+.challenge-nav-btn.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .challenge-detail-wrap { padding: 0 1rem 2.5rem; }
+    .challenge-detail-hero { padding: 1.6rem 1.25rem; border-radius: 18px; }
+    .challenge-detail-hero::before { font-size: 8rem; }
+    .challenge-block { padding: 1.1rem; gap: 0.85rem; border-radius: 13px; }
+    .challenge-block-icon { width: 42px; height: 42px; font-size: 1.25rem; border-radius: 11px; }
+    .challenge-block-text { font-size: 0.96rem; line-height: 1.7; }
+    .challenge-keywords { padding: 1.1rem; }
+    .challenge-nav { flex-direction: column; }
+    .challenge-nav-btn { width: 100%; justify-content: center; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="challenge-detail-wrap">
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb-nav" aria-label="breadcrumb">
+        <div class="breadcrumb-container">
+            <a href="/" class="breadcrumb-link">🏠 হোম</a>
+            <span class="breadcrumb-sep">›</span>
+            <a href="/challenges" class="breadcrumb-link">⚠️ চ্যালেঞ্জ</a>
+            <span class="breadcrumb-sep">›</span>
+            <span class="breadcrumb-current">#{{ challenge.id }}</span>
+        </div>
+    </nav>
+
+    <article>
+
+        <!-- Hero Header -->
+        <header class="challenge-detail-hero">
+            <div class="challenge-detail-badges">
+                <span class="challenge-detail-badge">⚠️ চ্যালেঞ্জ #{{ challenge.id }}</span>
+                {% if challenge.phase %}
+                <span class="challenge-detail-badge">📂 {{ challenge.phase }} পর্যায়</span>
+                {% endif %}
+            </div>
+            <h1 class="challenge-detail-title">{{ challenge.problem }}</h1>
+        </header>
+
+        <!-- Symptom -->
+        {% if challenge.symptom %}
+        <div class="challenge-block symptom">
+            <div class="challenge-block-icon">🔍</div>
+            <div class="challenge-block-content">
+                <h2 class="challenge-block-title">উপসর্গ</h2>
+                <p class="challenge-block-text">{{ challenge.symptom }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Consequence -->
+        {% if challenge.consequence %}
+        <div class="challenge-block consequence">
+            <div class="challenge-block-icon">⚠️</div>
+            <div class="challenge-block-content">
+                <h2 class="challenge-block-title">পরিণতি</h2>
+                <p class="challenge-block-text">{{ challenge.consequence }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Solution -->
+        {% if challenge.solution %}
+        <div class="challenge-block solution">
+            <div class="challenge-block-icon">✅</div>
+            <div class="challenge-block-content">
+                <h2 class="challenge-block-title">সমাধান</h2>
+                <p class="challenge-block-text">{{ challenge.solution }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Keywords -->
+        {% if challenge.keywords %}
+        <div class="challenge-keywords">
+            <h3 class="challenge-keywords-title">🏷️ ট্যাগ</h3>
+            <div class="challenge-keywords-list">
+                {% for kw in challenge.keywords %}
+                    <a href="/search?q={{ kw }}" class="challenge-keyword-tag">#{{ kw }}</a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Navigation -->
+        <nav class="challenge-nav">
+            {% if prev_challenge %}
+                <a href="/challenge/{{ prev_challenge.id }}" class="challenge-nav-btn ghost">
+                    ← #{{ prev_challenge.id }} {{ prev_challenge.problem[:30] }}{% if prev_challenge.problem|length > 30 %}…{% endif %}
+                </a>
+            {% else %}
+                <span class="challenge-nav-btn ghost disabled">← প্রথম চ্যালেঞ্জ</span>
+            {% endif %}
+
+            <a href="/challenges" class="challenge-nav-btn primary">📋 সব চ্যালেঞ্জ</a>
+
+            {% if next_challenge %}
+                <a href="/challenge/{{ next_challenge.id }}" class="challenge-nav-btn ghost">
+                    #{{ next_challenge.id }} {{ next_challenge.problem[:30] }}{% if next_challenge.problem|length > 30 %}…{% endif %} →
+                </a>
+            {% else %}
+                <span class="challenge-nav-btn ghost disabled">শেষ চ্যালেঞ্জ →</span>
+            {% endif %}
+        </nav>
+
+    </article>
+
+</div>
+
+{% endblock %}

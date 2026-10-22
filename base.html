@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}সবুজ বই — প্রকল্প ব্যবস্থাপনা{% endblock %}</title>
+    
+    <!-- Google Fonts — Bengali -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- PWA Settings & Favicon -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#198754">
+    <link rel="apple-touch-icon" href="/static/icon-192x192.png">
+    <link rel="icon" type="image/png" href="/static/icon-192x192.png">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+    <!-- ============================================
+         📘 Navigation Bar
+         ============================================ -->
+    <nav class="main-navbar">
+        <div class="nav-container">
+
+            <!-- Brand / Logo -->
+            <a href="/" class="nav-brand">
+                <span class="brand-icon">📘</span>
+                <span class="brand-text">সবুজ বই</span>
+            </a>
+
+            <!-- 🔍 Live Search Box -->
+            <form action="/search" method="GET" 
+                  class="nav-search-form" 
+                  id="liveSearchForm"
+                  autocomplete="off">
+                <div class="nav-search-wrapper">
+                    <span class="nav-search-icon">🔍</span>
+                    <input 
+                        type="text" 
+                        name="q" 
+                        id="liveSearchInput"
+                        class="nav-search-input"
+                        placeholder="অনুচ্ছেদ, সমস্যা, বিধি..."
+                        autocomplete="off"
+                        aria-label="Live search"
+                    >
+                </div>
+                <!-- Dropdown Results Container -->
+                <div class="live-search-results" id="liveSearchResults"></div>
+            </form>
+
+            <!-- Mobile Nav Toggle -->
+            <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+
+            <!-- Nav Menu -->
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="/" class="nav-link">🏠 হোম</a></li>
+                <li><a href="/ppr" class="nav-link">📕 পিপিআর</a></li>
+                <li><a href="/challenges" class="nav-link">⚠️ চ্যালেঞ্জ</a></li>
+                <li><a href="/decision" class="nav-link">🌳 সিদ্ধান্ত</a></li>
+                <li><a href="/funds" class="nav-link">💰 অর্থ</a></li>
+                <li><a href="/milestones" class="nav-link">🎯 অনুমোদন</a></li>
+                <li><a href="/systems" class="nav-link">🖥️ সিস্টেম</a></li>
+                <li><a href="/appendix" class="nav-link">📎 সংযোজনী</a></li>
+                <li><a href="/refs" class="nav-link">📌 অনুচ্ছেদ</a></li>
+                <li><a href="/misc" class="nav-link">📝 বিবিধ</a></li>
+                {% if is_admin %}
+                    <li><a href="/logout" class="nav-link nav-logout">🚪 লগআউট</a></li>
+                {% endif %}
+            </ul>
+
+        </div>
+    </nav>
+
+
+    <!-- ============================================
+         🔔 Flash Messages
+         ============================================ -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-container">
+                {% for category, message in messages %}
+                    <div class="flash flash-{{ category }}">
+                        <span class="flash-message">{{ message }}</span>
+                        <button onclick="this.parentElement.remove()" class="flash-close" aria-label="Close">×</button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+
+    <!-- ============================================
+         📄 Main Content
+         ============================================ -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+
+    <!-- ============================================
+         📘 Footer
+         ============================================ -->
+    <footer class="main-footer">
+        <div class="footer-container">
+
+            <div class="footer-section">
+                <h4 class="footer-heading">📘 সবুজ বই</h4>
+                <p class="footer-text">
+                    বাংলাদেশ সরকারের প্রকল্প প্রণয়ন, প্রক্রিয়াকরণ, অনুমোদন ও সংশোধন নির্দেশিকা
+                </p>
+            </div>
+
+            <div class="footer-section">
+                <h4 class="footer-heading">দ্রুত লিঙ্ক</h4>
+                <ul class="footer-links">
+                    <li><a href="/">হোম</a></li>
+                    <li><a href="/ppr">পিপিআর ২০২৫</a></li>
+                    <li><a href="/challenges">২৫টি চ্যালেঞ্জ</a></li>
+                    <li><a href="/decision">সিদ্ধান্ত গাছ</a></li>
+                    <li><a href="/refs">সব অনুচ্ছেদ</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4 class="footer-heading">তথ্যসূত্র</h4>
+                <p class="footer-text">
+                    পরিকল্পনা বিভাগ, পরিকল্পনা মন্ত্রণালয়,<br>
+                    গণপ্রজাতন্ত্রী বাংলাদেশ সরকার
+                </p>
+                <p class="footer-text footer-date">
+                    জুন ২০২২ | সেপ্টেম্বর ২০২৫
+                </p>
+            </div>
+
+            <!-- 📞 যোগাযোগ সেকশন -->
+            <div class="footer-section">
+                <h4 class="footer-heading">📞 যোগাযোগ</h4>
+                <ul class="footer-links" style="list-style: none; padding-left: 0;">
+                    <li style="margin-bottom: 10px;">
+                        <a href="tel:+8801937106547" style="color: #e9ecef; text-decoration: none; transition: color 0.2s;">
+                            📱 মোবাইল: ০১৯৩৭১০৬৫৪৭
+                        </a>
+                    </li>
+                    <li style="margin-bottom: 10px;">
+                        <a href="https://wa.me/8801937106547" target="_blank" style="color: #e9ecef; text-decoration: none; transition: color 0.2s;">
+                            💬 হোয়াটসঅ্যাপ: ০১৯৩৭১০৬৫৪৭
+                        </a>
+                    </li>
+                    <li style="margin-bottom: 10px;">
+                        <a href="mailto:kawsaralam2512@gmail.com" style="color: #e9ecef; text-decoration: none; transition: color 0.2s;">
+                            ✉️ ই-মেইল: kawsaralam2512@gmail.com
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>© {{ year }} সবুজ বই | সংস্করণ ২.০ | Developed by <strong>কাওছার আলম</strong> | 📱 ০১৯৩৭১০৬৫৪৭ | ✉️ kawsaralam2512@gmail.com</p>
+        </div>
+    </footer>
+
+
+    <!-- ============================================
+         Scripts
+         ============================================ -->
+
+    <!-- Bootstrap 5.3 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Mobile Nav Toggle Script -->
+    <script>
+        function toggleNav() {
+            const menu = document.getElementById('navMenu');
+            if (menu) {
+                menu.classList.toggle('active');
+            }
+        }
+    </script>
+
+    <!-- 🔍 Live Search Script (Global — সব পেজে কাজ করবে) -->
+    <script src="{{ url_for('static', filename='search.js') }}" defer></script>
+
+    <!-- PWA Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('✅ ServiceWorker registered:', registration);
+                    })
+                    .catch(error => {
+                        console.log('❌ ServiceWorker registration failed:', error);
+                    });
+            });
+        }
+    </script>
+
+    <!-- Extra JS Block (per-page) -->
+    {% block extra_js %}{% endblock %}
+
+</body>
+</html>

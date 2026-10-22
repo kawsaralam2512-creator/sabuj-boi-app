@@ -1,0 +1,19 @@
+# ============================================
+# সবুজ বই — Python Dependencies
+# ============================================
+
+# Web Framework
+Flask==3.0.0
+Werkzeug==3.0.1
+
+# Environment Variables
+python-dotenv==1.0.0
+
+# Production Server (optional)
+gunicorn==21.2.0
+
+# ============================================
+# 📌 Installation Guide:
+# ১. ভার্চুয়াল এনভায়রনমেন্ট চালু করুন (venv\Scripts\activate.bat)
+# ২. টার্মিনালে লিখুন: pip install -r requirements.txt
+# ============================================

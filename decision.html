@@ -1,0 +1,286 @@
+{% extends "base.html" %}
+
+{% block title %}সিদ্ধান্ত গাছ — সবুজ বই{% endblock %}
+
+{% block extra_css %}
+<style>
+/* ===== Decision Tree Page — Modern Design ===== */
+.decision-hero {
+    background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 50%, #86efac 100%);
+    padding: 3rem 1.5rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0 0 32px 32px;
+    margin-bottom: 1.5rem;
+}
+.decision-hero::before {
+    content: "🌳";
+    position: absolute;
+    font-size: 18rem;
+    opacity: 0.08;
+    top: -40px;
+    right: -30px;
+    transform: rotate(-15deg);
+    pointer-events: none;
+}
+.decision-hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+.decision-badge {
+    display: inline-block;
+    background: #15803d;
+    color: #fff;
+    padding: 0.4rem 1.1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 12px rgba(21, 128, 61, 0.25);
+}
+.decision-title {
+    font-size: clamp(1.5rem, 4vw, 2.4rem);
+    font-weight: 800;
+    color: #064e3b;
+    margin: 0 0 0.85rem;
+    line-height: 1.3;
+}
+.decision-subtitle {
+    font-size: 1.02rem;
+    color: #047857;
+    max-width: 720px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+/* Breadcrumb */
+.breadcrumb-nav {
+    max-width: 1100px;
+    margin: 0 auto 1.5rem;
+    padding: 0 1.5rem;
+}
+.breadcrumb-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    flex-wrap: wrap;
+}
+.breadcrumb-link {
+    color: #059669;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+.breadcrumb-link:hover { background: #d1fae5; }
+.breadcrumb-sep { color: #94a3b8; }
+.breadcrumb-current { color: #475569; font-weight: 600; }
+
+/* Content */
+.decision-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem 3rem;
+}
+
+/* Category Block */
+.decision-category {
+    margin-bottom: 2rem;
+    background: #fff;
+    border-radius: 20px;
+    padding: 1.75rem;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+    border: 1px solid #e2e8f0;
+    animation: fadeUp 0.5s ease both;
+}
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.category-header {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px dashed #e2e8f0;
+}
+.category-icon {
+    font-size: 1.5rem;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+    color: #166534;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+.category-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+    flex: 1;
+}
+
+/* Accordion / Q&A List */
+.qa-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+.qa-item {
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.25s ease;
+    background: #f8fafc;
+}
+.qa-item:hover {
+    border-color: #10b981;
+    background: #fff;
+}
+.qa-item[open] {
+    border-color: #10b981;
+    background: #fff;
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.1);
+}
+.qa-item summary {
+    padding: 1.15rem 1.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    list-style: none; /* Hide default arrow */
+    user-select: none;
+}
+.qa-item summary::-webkit-details-marker { display: none; } /* Hide arrow on Safari */
+.qa-number {
+    background: #d1fae5;
+    color: #047857;
+    font-weight: 800;
+    font-size: 0.8rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+}
+.qa-question {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+    line-height: 1.5;
+    flex: 1;
+}
+.qa-arrow {
+    font-size: 1.2rem;
+    color: #94a3b8;
+    transition: transform 0.3s ease;
+    margin-top: 0.15rem;
+}
+.qa-item[open] .qa-arrow {
+    transform: rotate(180deg);
+    color: #10b981;
+}
+.qa-item[open] .qa-question {
+    color: #065f46;
+}
+
+.qa-answer {
+    padding: 0 1.25rem 1.25rem 3.6rem;
+    font-size: 0.98rem;
+    color: #334155;
+    line-height: 1.75;
+    border-top: 1px dashed #cbd5e1;
+    padding-top: 1rem;
+    margin-top: 0.25rem;
+    animation: slideDown 0.3s ease;
+}
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-5px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.qa-answer::before {
+    content: "💡 সমাধান: ";
+    font-weight: 800;
+    color: #047857;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .decision-hero { padding: 2.25rem 1rem 2rem; border-radius: 0 0 24px 24px; }
+    .decision-hero::before { font-size: 12rem; }
+    .decision-category { padding: 1.25rem; border-radius: 16px; }
+    .qa-item summary { padding: 1rem; }
+    .qa-question { font-size: 0.98rem; }
+    .qa-answer { padding: 0 1rem 1rem 1rem; font-size: 0.92rem; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Hero Header -->
+<section class="decision-hero">
+    <div class="decision-hero-inner">
+        <span class="decision-badge">🌳 সিদ্ধান্ত গ্রহণ</span>
+        <h1 class="decision-title">সিদ্ধান্ত গাছ (Decision Tree)</h1>
+        <p class="decision-subtitle">প্রকল্প বাস্তবায়ন ও প্রশাসনিক জটিলতা নিরসনে সঠিক সিদ্ধান্ত নেওয়ার একটি ব্যবহারিক নির্দেশিকা।</p>
+    </div>
+</section>
+
+<!-- Breadcrumb -->
+<nav class="breadcrumb-nav" aria-label="breadcrumb">
+    <div class="breadcrumb-container">
+        <a href="/" class="breadcrumb-link">🏠 হোম</a>
+        <span class="breadcrumb-sep">›</span>
+        <span class="breadcrumb-current">🌳 সিদ্ধান্ত গাছ</span>
+    </div>
+</nav>
+
+<!-- Content -->
+<section class="decision-content">
+
+    {% for cat in decision.categories %}
+    <div class="decision-category">
+        
+        <div class="category-header">
+            <span class="category-icon">📂</span>
+            <h2 class="category-title">{{ cat.name }}</h2>
+        </div>
+
+        <div class="qa-list">
+            {% for prob in cat.problems %}
+            <details class="qa-item">
+                <summary>
+                    <span class="qa-number">#{{ prob.id }}</span>
+                    <h3 class="qa-question">{{ prob.question }}</h3>
+                    <span class="qa-arrow">▼</span>
+                </summary>
+                <div class="qa-answer">
+                    {{ prob.solution }}
+                </div>
+            </details>
+            {% endfor %}
+        </div>
+
+    </div>
+    {% else %}
+        <div style="text-align: center; padding: 3rem 1rem;">
+            <p style="font-size: 1.2rem; color: #64748b;">কোনো সিদ্ধান্ত গাছ পাওয়া যায়নি।</p>
+        </div>
+    {% endfor %}
+
+</section>
+
+{% endblock %}

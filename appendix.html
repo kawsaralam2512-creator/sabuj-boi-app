@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}সংযোজনী — সবুজ বই{% endblock %}
+
+{% block content %}
+
+<!-- ============================================
+     📎 Appendix Header Section
+     ============================================ -->
+<section class="ppr-header-section" style="background: linear-gradient(135deg, #6a1b9a 0%, #4a148c 100%);">
+    <div class="ppr-header-container">
+        <div class="ppr-badge">
+            <span>📎</span>
+            <span>সংযোজনী সংগ্রহ</span>
+        </div>
+        <h1 class="ppr-title">সবুজ বই — সংযোজনীসমূহ</h1>
+        <p class="ppr-subtitle">
+            {{ appendices.appendices|length }}টি সংযোজনী • সম্পূর্ণ PDF ফাইল
+        </p>
+        <p class="ppr-description">
+            নিচে আপনার নির্দেশিকার সব সংযোজনী এবং ছকসমূহের তালিকা দেওয়া হলো।
+        </p>
+        
+        <!-- 📄 Full PDF Button -->
+        {% if appendices.pdf_file %}
+        <div style="margin-top: 20px;">
+            <a href="{{ url_for('static', filename='pdfs/' + appendices.pdf_file) }}" 
+               target="_blank" 
+               class="ppr-search-btn" 
+               style="background: #fff; color: #6a1b9a; text-decoration: none; display: inline-block; padding: 12px 25px; border-radius: 30px; font-weight: bold;">
+                📄 সম্পূর্ণ PDF দেখুন
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Breadcrumb -->
+<nav class="breadcrumb-nav">
+    <div class="breadcrumb-container">
+        <a href="/" class="breadcrumb-link">🏠 হোম</a>
+        <span class="breadcrumb-sep">›</span>
+        <span class="breadcrumb-current">📎 সংযোজনী</span>
+    </div>
+</nav>
+
+<!-- ============================================
+     📎 Appendix List Section
+     ============================================ -->
+<section class="ppr-content-section" style="background: #f8f9fa; min-height: 70vh;">
+    <div class="ppr-content-container">
+        
+        {% if appendices.appendices %}
+            <div class="ppr-problems-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
+                
+                {% for ap in appendices.appendices %}
+                    <div class="ppr-problem-card" style="border-left: 4px solid #6a1b9a; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <div class="ppr-problem-header">
+                                <span class="ppr-rule-badge" style="background: #f3e5f5; color: #6a1b9a; font-size: 0.85rem;">
+                                    📎 {{ ap.name }}
+                                </span>
+                                {% if ap.page_start %}
+                                    <span style="font-size: 0.8rem; color: #6c757d; background: #f8f9fa; padding: 2px 8px; border-radius: 10px;">
+                                        📄 পৃষ্ঠা {{ ap.page_start }}-{{ ap.page_end }}
+                                    </span>
+                                {% endif %}
+                            </div>
+                            
+                            <h3 class="ppr-problem-text" style="color: #4a148c; font-size: 1.1rem; margin-top: 10px;">
+                                {{ ap.title }}
+                            </h3>
+                            
+                            {% if ap.description %}
+                                <p style="color: #6c757d; font-size: 0.9rem; margin-bottom: 15px;">
+                                    {{ ap.description }}
+                                </p>
+                            {% endif %}
+                        </div>
+                        
+                        <div style="display: flex; gap: 10px; margin-top: 15px;">
+                            <a href="/appendix/{{ ap.id }}" class="btn btn-sm" 
+                               style="flex: 1; text-align: center; background: #6a1b9a; color: #fff; border-radius: 8px; padding: 8px;">
+                                👁️ বিস্তারিত দেখুন
+                            </a>
+                            {% if ap.pdf_page_start %}
+                            <a href="/pdf/{{ appendices.pdf_file }}#page={{ ap.pdf_page_start }}" target="_blank" 
+                               class="btn btn-sm" 
+                               style="flex: 1; text-align: center; background: #e9ecef; color: #333; border-radius: 8px; padding: 8px;">
+                                📄 PDF
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="ppr-empty">
+                <div class="ppr-empty-icon">📭</div>
+                <h3>কোনো সংযোজনী পাওয়া যায়নি</h3>
+                <p>ডেটাবেসে কোনো সংযোজনী যুক্ত করা হয়নি।</p>
+            </div>
+        {% endif %}
+
+    </div>
+</section>
+
+{% endblock %}

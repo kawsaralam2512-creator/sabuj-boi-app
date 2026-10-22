@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block title %}পিপিআর ২০২৫ — সবুজ বই{% endblock %}
+
+{% block content %}
+
+<!-- ============================================
+     📕 PPR Header Section
+     ============================================ -->
+<section class="ppr-header-section">
+    <div class="ppr-header-container">
+
+        <div class="ppr-badge">
+            <span>📕</span>
+            <span>সরকারি গেজেট</span>
+        </div>
+
+        <h1 class="ppr-title">
+            পাবলিক প্রকিউরমেন্ট বিধিমালা, ২০২৫
+        </h1>
+
+        <p class="ppr-subtitle">
+            এস.আর.ও. নং ৩৮৮-আইন/২০২৫ • কার্যকর: ২৮ সেপ্টেম্বর ২০২৫
+        </p>
+
+        <p class="ppr-description">
+            পাবলিক প্রকিউরমেন্ট আইন, ২০০৬ এর ধারা ৭০ এ প্রদত্ত ক্ষমতাবলে
+            সরকার কর্তৃক প্রণীত বিধিমালা। প্রকল্প প্রণয়ন, অনুমোদন ও
+            বাস্তবায়নে {{ problems_count|default(problems|length) }}টি সমস্যা-সমাধান সংকলিত।
+        </p>
+
+        <!-- 🔍 PPR-Only Search Form -->
+        <form action="/ppr/search" method="GET" class="ppr-search-form">
+            <div class="ppr-search-wrapper">
+                <span class="search-icon">🔍</span>
+                <input
+                    type="text"
+                    name="q"
+                    class="ppr-search-input"
+                    value="{{ search_query or '' }}"
+                    placeholder="শুধু PPR-এর ভেতরে খুঁজুন..."
+                    autocomplete="off"
+                >
+                <button type="submit" class="ppr-search-btn">
+                    🔍 PPR-এ সার্চ
+                </button>
+            </div>
+        </form>
+
+        {% if search_query %}
+            <p class="ppr-search-info">
+                "<strong>{{ search_query }}</strong>" এর জন্য
+                <strong>{{ problems_count|default(problems|length) }}</strong>টি ফলাফল
+                <a href="/ppr" class="ppr-search-clear">✕ ক্লিয়ার</a>
+            </p>
+        {% endif %}
+
+        <div class="ppr-stats">
+            <div class="ppr-stat">
+                <span class="ppr-stat-num">{{ problems_count|default(problems|length) }}</span>
+                <span class="ppr-stat-label">
+                    {% if search_query %}ফলাফল{% else %}সমস্যা-সমাধান{% endif %}
+                </span>
+            </div>
+            <div class="ppr-stat">
+                <span class="ppr-stat-num">{{ chapters_count|default(chapters|length) }}</span>
+                <span class="ppr-stat-label">অধ্যায়</span>
+            </div>
+            <div class="ppr-stat">
+                <span class="ppr-stat-num">২০২৫</span>
+                <span class="ppr-stat-label">সাল</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- Breadcrumb -->
+<nav class="breadcrumb-nav">
+    <div class="breadcrumb-container">
+        <a href="/" class="breadcrumb-link">🏠 হোম</a>
+        <span class="breadcrumb-sep">›</span>
+        <span class="breadcrumb-current">📕 পিপিআর ২০২৫</span>
+    </div>
+</nav>
+
+
+<!-- PPR Problems -->
+<section class="ppr-content-section">
+    <div class="ppr-content-container">
+
+        {% if problems %}
+            {% for chapter_name, chapter_problems in chapters.items() %}
+                <div class="ppr-chapter-block">
+                    <div class="ppr-chapter-header">
+                        <h2 class="ppr-chapter-title">📖 {{ chapter_name }}</h2>
+                        <span class="ppr-chapter-count">{{ chapter_problems|length }}টি বিধি</span>
+                    </div>
+
+                    <div class="ppr-problems-list">
+                        {% for p in chapter_problems %}
+                            <a href="/ppr/view/{{ p.id }}" class="ppr-problem-card">
+                                <div class="ppr-problem-header">
+                                    {% if p.rule %}
+                                        <span class="ppr-rule-badge">
+                                            বিধি {{ p.rule }}{% if p.sub_rule %}{{ p.sub_rule }}{% endif %}
+                                        </span>
+                                    {% else %}
+                                        <span class="ppr-rule-badge ppr-rule-badge-missing">
+                                            🆔 সমস্যা #{{ p.id }}
+                                        </span>
+                                    {% endif %}
+                                    {% if p.rule_title %}
+                                        <span class="ppr-rule-title">{{ p.rule_title }}</span>
+                                    {% endif %}
+                                </div>
+                                <h3 class="ppr-problem-text">❓ {{ p.problem }}</h3>
+                                <p class="ppr-solution-preview">
+                                    ✅ {{ p.solution[:180] }}{% if p.solution|length > 180 %}...{% endif %}
+                                </p>
+                                <div class="ppr-problem-footer">
+                                    {% if p.pdf_page %}
+                                        <span class="ppr-page-tag">📄 পৃষ্ঠা {{ p.pdf_page }}</span>
+                                    {% else %}
+                                        <span></span>
+                                    {% endif %}
+                                    <span class="ppr-read-more">বিস্তারিত →</span>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="ppr-empty">
+                <div class="ppr-empty-icon">🔍</div>
+                <h3>কোনো ফলাফল পাওয়া যায়নি</h3>
+                <p>
+                    {% if search_query %}
+                        "<strong>{{ search_query }}</strong>" এর সাথে মেলে এমন কোনো বিধি পাওয়া যায়নি।
+                    {% else %}
+                        PPR ২০২৫-এর ডেটা এখনো লোড করা হয়নি।
+                    {% endif %}
+                </p>
+                <div style="margin-top: 20px;">
+                    <a href="/ppr" class="section-back-btn">← সব বিধি দেখুন</a>
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+</section>
+
+{% endblock %}

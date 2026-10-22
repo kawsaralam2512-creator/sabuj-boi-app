@@ -1,0 +1,316 @@
+{% extends "base.html" %}
+
+{% block title %}বিবিধ — সবুজ বই{% endblock %}
+
+{% block extra_css %}
+<style>
+/* ===== Misc Page — Modern Design ===== */
+.misc-hero {
+    background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 50%, #d8b4fe 100%);
+    padding: 3rem 1.5rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0 0 32px 32px;
+    margin-bottom: 1.5rem;
+}
+.misc-hero::before {
+    content: "📝";
+    position: absolute;
+    font-size: 18rem;
+    opacity: 0.08;
+    top: -40px;
+    right: -30px;
+    transform: rotate(-15deg);
+    pointer-events: none;
+}
+.misc-hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+.misc-badge {
+    display: inline-block;
+    background: #7e22ce;
+    color: #fff;
+    padding: 0.4rem 1.1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 12px rgba(126, 34, 206, 0.25);
+}
+.misc-title {
+    font-size: clamp(1.5rem, 4vw, 2.4rem);
+    font-weight: 800;
+    color: #581c87;
+    margin: 0 0 0.85rem;
+    line-height: 1.3;
+}
+.misc-subtitle {
+    font-size: 1.02rem;
+    color: #6b21a8;
+    max-width: 720px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+/* Breadcrumb */
+.breadcrumb-nav {
+    max-width: 1100px;
+    margin: 0 auto 1.5rem;
+    padding: 0 1.5rem;
+}
+.breadcrumb-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    flex-wrap: wrap;
+}
+.breadcrumb-link {
+    color: #059669;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+.breadcrumb-link:hover { background: #d1fae5; }
+.breadcrumb-sep { color: #94a3b8; }
+.breadcrumb-current { color: #475569; font-weight: 600; }
+
+/* Content */
+.misc-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem 3rem;
+}
+
+/* Add Button (Admin) */
+.misc-action-bar {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1.5rem;
+}
+.btn-add {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #7e22ce;
+    color: #fff;
+    padding: 0.65rem 1.25rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(126, 34, 206, 0.2);
+}
+.btn-add:hover {
+    background: #6b21a8;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(126, 34, 206, 0.3);
+}
+
+/* Misc Item Card */
+.misc-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border: 1.5px solid #e2e8f0;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.4s ease both;
+}
+.misc-card:hover {
+    border-color: #d8b4fe;
+    box-shadow: 0 8px 20px rgba(126, 34, 206, 0.08);
+    transform: translateY(-2px);
+}
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.misc-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.85rem;
+    gap: 1rem;
+}
+.misc-problem {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+    line-height: 1.5;
+    flex: 1;
+}
+.misc-date {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    font-weight: 600;
+    white-space: nowrap;
+    background: #f1f5f9;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+}
+
+.misc-solution-box {
+    background: #faf5ff;
+    border-left: 4px solid #a855f7;
+    border-radius: 0 8px 8px 0;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+.misc-solution-label {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: #7e22ce;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.35rem;
+}
+.misc-solution-text {
+    font-size: 0.95rem;
+    color: #334155;
+    line-height: 1.65;
+    margin: 0;
+}
+
+/* Admin Action Buttons */
+.misc-admin-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px dashed #e2e8f0;
+}
+.btn-edit, .btn-delete {
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 0.4rem 0.85rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+}
+.btn-edit {
+    background: #eff6ff;
+    color: #2563eb;
+}
+.btn-edit:hover {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+.btn-delete {
+    background: #fef2f2;
+    color: #dc2626;
+}
+.btn-delete:hover {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 4rem 1rem;
+    color: #94a3b8;
+}
+.empty-state-icon {
+    font-size: 4rem;
+    opacity: 0.4;
+    margin-bottom: 1rem;
+}
+.empty-state-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .misc-hero { padding: 2.25rem 1rem 2rem; border-radius: 0 0 24px 24px; }
+    .misc-hero::before { font-size: 12rem; }
+    .misc-card { padding: 1.15rem; border-radius: 13px; }
+    .misc-top { flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+    .misc-problem { font-size: 1rem; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Hero Header -->
+<section class="misc-hero">
+    <div class="misc-hero-inner">
+        <span class="misc-badge">📝 বিবিধ তথ্যভাণ্ডার</span>
+        <h1 class="misc-title">বিবিধ সমস্যা ও সমাধান</h1>
+        <p class="misc-subtitle">প্রকল্প পরিচালনায় নিত্যদিনের বিভিন্ন সমস্যা ও তার ব্যবহারিক সমাধানের সংগ্রহ।</p>
+    </div>
+</section>
+
+<!-- Breadcrumb -->
+<nav class="breadcrumb-nav" aria-label="breadcrumb">
+    <div class="breadcrumb-container">
+        <a href="/" class="breadcrumb-link">🏠 হোম</a>
+        <span class="breadcrumb-sep">›</span>
+        <span class="breadcrumb-current">📝 বিবিধ</span>
+    </div>
+</nav>
+
+<!-- Content -->
+<section class="misc-content">
+
+    <!-- Admin: Add Button -->
+    {% if is_admin %}
+    <div class="misc-action-bar">
+        <a href="/misc/add" class="btn-add">➕ নতুন তথ্য যোগ করুন</a>
+    </div>
+    {% endif %}
+
+    <!-- Misc Entries -->
+    {% for entry in misc.entries %}
+    <div class="misc-card">
+        
+        <div class="misc-top">
+            <h2 class="misc-problem">{{ entry.problem }}</h2>
+            {% if entry.date %}
+            <span class="misc-date">📅 {{ entry.date }}</span>
+            {% endif %}
+        </div>
+
+        <div class="misc-solution-box">
+            <div class="misc-solution-label">💡 সমাধান</div>
+            <p class="misc-solution-text">{{ entry.solution }}</p>
+        </div>
+
+        <!-- Admin: Edit / Delete Buttons -->
+        {% if is_admin %}
+        <div class="misc-admin-actions">
+            <a href="/misc/edit/{{ entry.id }}" class="btn-edit">✏️ এডিট</a>
+            <form action="/misc/delete/{{ entry.id }}" method="POST" style="display:inline;" onsubmit="return confirm('আপনি কি নিশ্চিত এই তথ্যটি মুছে ফেলতে চান?');">
+                <button type="submit" class="btn-delete">🗑️ ডিলিট</button>
+            </form>
+        </div>
+        {% endif %}
+
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <div class="empty-state-icon">📭</div>
+        <p class="empty-state-text">এখনো কোনো তথ্য যোগ করা হয়নি।</p>
+    </div>
+    {% endfor %}
+
+</section>
+
+{% endblock %}

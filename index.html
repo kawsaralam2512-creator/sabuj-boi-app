@@ -1,0 +1,290 @@
+{% extends "base.html" %}
+
+{% block title %}সবুজ বই — প্রকল্প ব্যবস্থাপনা সহায়ক{% endblock %}
+
+{% block content %}
+
+<!-- ============================================
+     🎨 HERO SECTION
+     ============================================ -->
+<section class="hero-section">
+    <div class="hero-bg-shape hero-bg-shape-1"></div>
+    <div class="hero-bg-shape hero-bg-shape-2"></div>
+    <div class="hero-bg-shape hero-bg-shape-3"></div>
+
+    <div class="hero-container">
+
+        <div class="hero-badge">
+            <span class="badge-pulse"></span>
+            বাংলাদেশ সরকারের প্রকল্প নির্দেশিকা
+        </div>
+
+        <h1 class="hero-title">
+            <span class="hero-title-line">
+                <span class="hero-title-icon">📘</span>
+                <span class="hero-title-highlight">সবুজ বই</span>
+            </span>
+            <span class="hero-title-sub">
+                সরকারি প্রকল্প ব্যবস্থাপনার ডিজিটাল গাইড
+            </span>
+        </h1>
+
+        <div class="hero-pills">
+            <span class="hero-pill"><span class="pill-dot"></span> {{ stats.chapters }} অধ্যায়</span>
+            <span class="hero-pill"><span class="pill-dot"></span> {{ stats.sections }} সেকশন</span>
+            <span class="hero-pill"><span class="pill-dot"></span> {{ stats.ppr }} পিপিআর বিধি</span>
+            <span class="hero-pill"><span class="pill-dot"></span> {{ stats.challenges }} চ্যালেঞ্জ</span>
+            <span class="hero-pill"><span class="pill-dot"></span> স্মার্ট সার্চ</span>
+        </div>
+
+        <!-- 🏠 হোম page-এর Search -->
+        <form action="/search" method="GET" class="hero-search-form">
+            <div class="hero-search-wrapper">
+                <span class="hero-search-icon">🔍</span>
+                <input
+                    type="text"
+                    name="q"
+                    id="liveSearchInput"
+                    class="hero-search-input"
+                    placeholder="সবুজ বইয়ের ভেতরে খুঁজুন (অনুচ্ছেদ, অধ্যায়...)"
+                    autocomplete="off"
+                >
+                <button type="submit" class="hero-search-btn">
+                    সার্চ করুন
+                </button>
+            </div>
+
+            <div class="hero-suggestions">
+                <span class="suggestion-label">দ্রুত খুঁজুন:</span>
+                <!-- এখানে /book/search এর পরিবর্তে /search করা হয়েছে -->
+                <a href="/search?q=মেয়াদ বৃদ্ধি" class="suggestion-chip">মেয়াদ বৃদ্ধি</a>
+                <a href="/search?q=সম্ভাব্যতা সমীক্ষা" class="suggestion-chip">সম্ভাব্যতা সমীক্ষা</a>
+                <a href="/search?q=জমি অধিগ্রহণ" class="suggestion-chip">জমি অধিগ্রহণ</a>
+                <a href="/search?q=ECNEC" class="suggestion-chip">ECNEC</a>
+                <a href="/search?q=DPP" class="suggestion-chip">DPP</a>
+            </div>
+        </form>
+
+        <div class="hero-actions">
+            <a href="/ppr" class="hero-action-btn hero-action-primary">
+                <span class="action-icon">📕</span>
+                <span class="action-content">
+                    <span class="action-title">পিপিআর ২০২৫</span>
+                    <span class="action-sub">{{ stats.ppr }}টি বিধি</span>
+                </span>
+                <span class="action-arrow">→</span>
+            </a>
+
+            <a href="/decision" class="hero-action-btn hero-action-ghost">
+                <span class="action-icon">🌳</span>
+                <span class="action-title">সিদ্ধান্ত গাছ</span>
+            </a>
+
+            <a href="/challenges" class="hero-action-btn hero-action-ghost">
+                <span class="action-icon">⚠️</span>
+                <span class="action-title">চ্যালেঞ্জ</span>
+            </a>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- Stats Section -->
+<section class="stats-section">
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-icon">📖</div>
+            <div class="stat-number">{{ stats.chapters }}</div>
+            <div class="stat-label">অধ্যায়</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">📄</div>
+            <div class="stat-number">{{ stats.sections }}</div>
+            <div class="stat-label">সেকশন</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">📌</div>
+            <div class="stat-number">{{ stats.subsections }}</div>
+            <div class="stat-label">উপানুচ্ছেদ</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">📕</div>
+            <div class="stat-number">{{ stats.ppr }}</div>
+            <div class="stat-label">পিপিআর বিধি</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">⚠️</div>
+            <div class="stat-number">{{ stats.challenges }}</div>
+            <div class="stat-label">চ্যালেঞ্জ</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">🎯</div>
+            <div class="stat-number">{{ stats.milestones }}</div>
+            <div class="stat-label">অনুমোদন সীমা</div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Features -->
+<section class="features-section">
+    <div class="section-header-center">
+        <h2 class="section-heading">🧭 কী খুঁজছেন?</h2>
+        <p class="section-subheading">আপনার প্রয়োজন অনুযায়ী যেকোনো বিভাগ বেছে নিন</p>
+    </div>
+
+    <div class="features-grid">
+        <a href="#chapters-section" class="feature-card feature-card-primary">
+            <div class="feature-icon">📖</div>
+            <h3 class="feature-title">প্রকল্প নির্দেশিকা</h3>
+            <p class="feature-desc">
+                বিনিয়োগ প্রকল্প চিহ্নিতকরণ থেকে শুরু করে অনুমোদন ও সংশোধন পর্যন্ত
+                {{ stats.chapters }}টি অধ্যায়ের সম্পূর্ণ গাইড।
+            </p>
+            <div class="feature-footer">
+                <span class="feature-count">{{ stats.sections }} সেকশন</span>
+                <span class="feature-arrow">→</span>
+            </div>
+        </a>
+
+        <a href="/ppr" class="feature-card feature-card-danger">
+            <div class="feature-icon">📕</div>
+            <h3 class="feature-title">পিপিআর ২০২৫</h3>
+            <p class="feature-desc">
+                পাবলিক প্রকিউরমেন্ট বিধিমালা ২০২৫-এর {{ stats.ppr }}টি
+                সমস্যা-সমাধান — বিধি ও উপবিধি সহ।
+            </p>
+            <div class="feature-footer">
+                <span class="feature-count">সেপ্টেম্বর ২০২৫</span>
+                <span class="feature-arrow">→</span>
+            </div>
+        </a>
+
+        <a href="/challenges" class="feature-card feature-card-warning">
+            <div class="feature-icon">⚠️</div>
+            <h3 class="feature-title">২৫টি চ্যালেঞ্জ</h3>
+            <p class="feature-desc">
+                IMED কর্তৃক চিহ্নিত প্রকল্প বাস্তবায়নের ২৫টি প্রধান সমস্যা ও
+                তার সমাধানের উপায়।
+            </p>
+            <div class="feature-footer">
+                <span class="feature-count">৬ পর্যায়</span>
+                <span class="feature-arrow">→</span>
+            </div>
+        </a>
+
+        <a href="/decision" class="feature-card feature-card-info">
+            <div class="feature-icon">🌳</div>
+            <h3 class="feature-title">সিদ্ধান্ত গাছ</h3>
+            <p class="feature-desc">
+                সমস্যা নির্বাচন করুন — সমাধানের পথ জানুন। বরাদ্দ, অনুমোদন,
+                সংশোধন — সব সিদ্ধান্ত এখানে।
+            </p>
+            <div class="feature-footer">
+                <span class="feature-count">{{ stats.problems }} সমস্যা</span>
+                <span class="feature-arrow">→</span>
+            </div>
+        </a>
+
+        <a href="/funds" class="feature-card feature-card-success">
+            <div class="feature-icon">💰</div>
+            <h3 class="feature-title">অর্থ ব্যবস্থাপনা</h3>
+            <p class="feature-desc">
+                রাজস্ব ও মূলধন খাত, উপযোগ, পুনর্বিন্যাস, অতিরিক্ত বরাদ্দ —
+                {{ stats.funds }}টি মূল বিষয়।
+            </p>
+            <div class="feature-footer">
+                <span class="feature-count">সম্পূর্ণ গাইড</span>
+                <span class="feature-arrow">→</span>
+            </div>
+        </a>
+
+        <a href="/appendix" class="feature-card feature-card-secondary">
+            <div class="feature-icon">📎</div>
+            <h3 class="feature-title">সংযোজনী সংগ্রহ</h3>
+            <p class="feature-desc">
+                সব সরকারি ছক, ফরম্যাট, কমিটি গঠন — DPP, TAPP, RDPP সহ
+                সম্পূর্ণ সংযোজনী।
+            </p>
+            <div class="feature-footer">
+                <span class="feature-count">PDF সহ</span>
+                <span class="feature-arrow">→</span>
+            </div>
+        </a>
+    </div>
+</section>
+
+
+<!-- Chapters -->
+<section class="chapters-section" id="chapters-section">
+    <div class="section-header-center">
+        <h2 class="section-heading">📚 নির্দেশিকার অধ্যায়সমূহ</h2>
+        <p class="section-subheading">
+            মোট {{ stats.chapters }}টি অধ্যায়, {{ stats.sections }}টি সেকশন
+        </p>
+    </div>
+
+    <div class="chapters-grid">
+        {% for chapter in chapters %}
+            <div class="chapter-card">
+                <div class="chapter-header">
+                    <div class="chapter-number">{{ loop.index }}</div>
+                    <div class="chapter-meta">
+                        <h3 class="chapter-title">{{ chapter.title }}</h3>
+                        {% if chapter.page %}
+                            <span class="chapter-page">📄 পৃষ্ঠা {{ chapter.page }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <ul class="chapter-sections-list">
+                    {% for section in chapter.sections[:4] %}
+                        <li>
+                            <a href="/section/{{ chapter.id }}/{{ loop.index0 }}" class="chapter-section-link">
+                                <span class="section-ref-badge">
+                                    {{ section.ref or (chapter.id ~ '.' ~ loop.index) }}
+                                </span>
+                                <span class="section-heading-text">{{ section.heading }}</span>
+                                {% if section.subsections %}
+                                    <span class="subsections-indicator">📌</span>
+                                {% endif %}
+                            </a>
+                        </li>
+                    {% endfor %}
+
+                    {% if chapter.sections|length > 4 %}
+                        <li class="chapter-more-link">
+                            <a href="/chapter/{{ chapter.id }}">
+                                আরও {{ chapter.sections|length - 4 }}টি সেকশন দেখুন →
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+
+                <div class="chapter-footer">
+                    <a href="/chapter/{{ chapter.id }}" class="chapter-view-all-btn">
+                        সম্পূর্ণ অধ্যায় দেখুন
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="cta-container">
+        <h2 class="cta-title">🆘 সমস্যা খুঁজে পাচ্ছেন না?</h2>
+        <p class="cta-desc">
+            সরাসরি সার্চ করুন অথবা সিদ্ধান্ত গাছ ব্যবহার করে আপনার সমস্যার সমাধান খুঁজুন।
+        </p>
+        <div class="cta-actions">
+            <a href="/search" class="cta-btn cta-btn-primary">🔍 সরাসরি সার্চ</a>
+            <a href="/decision" class="cta-btn cta-btn-secondary">🌳 সিদ্ধান্ত গাছ</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
