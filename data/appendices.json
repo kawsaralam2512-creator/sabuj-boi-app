@@ -1,0 +1,268 @@
+{
+  "title": "সবুজ বই — সংযোজনী",
+  "pdf_file": "sabuj_boi_2022.pdf",
+  "total_pages": 238,
+  "appendices": [
+    {
+      "id": "ka",
+      "name": "সংযোজনী-ক",
+      "title": "সম্ভাব্যতা সমীক্ষা প্রতিবেদনের ছক (বাংলা)",
+      "page_start": 45,
+      "page_end": 52,
+      "description": "সম্ভাব্যতা সমীক্ষা প্রতিবেদনের জন্য নির্ধারিত বাংলা ছক",
+      "keywords": ["সম্ভাব্যতা সমীক্ষা", "ফরম্যাট", "বাংলা", "ছক"]
+    },
+    {
+      "id": "kha",
+      "name": "সংযোজনী-খ",
+      "title": "Feasibility Study Report Format (English)",
+      "page_start": 53,
+      "page_end": 60,
+      "description": "সম্ভাব্যতা সমীক্ষা প্রতিবেদনের ইংরেজি ছক",
+      "keywords": ["Feasibility Study", "English", "Format"]
+    },
+    {
+      "id": "ga",
+      "name": "সংযোজনী-গ",
+      "title": "উন্নয়ন প্রকল্প প্রস্তাব (ডিপিপি) — বাংলা",
+      "page_start": 61,
+      "page_end": 76,
+      "description": "বাংলায় ডিপিপি'র নির্ধারিত ছক",
+      "keywords": ["DPP", "ডিপিপি", "উন্নয়ন প্রকল্প"]
+    },
+    {
+      "id": "gha",
+      "name": "সংযোজনী-ঘ",
+      "title": "Development Project Proposal (DPP) — English",
+      "page_start": 77,
+      "page_end": 93,
+      "description": "English format for DPP",
+      "keywords": ["DPP", "English", "Development Project"]
+    },
+    {
+      "id": "nga",
+      "name": "সংযোজনী-ঙ",
+      "title": "সংশোধিত উন্নয়ন প্রকল্প প্রস্তাব (আরডিপিপি)",
+      "page_start": 94,
+      "page_end": 106,
+      "description": "বাংলায় আরডিপিপি'র ছক",
+      "keywords": ["RDPP", "আরডিপিপি", "সংশোধিত"]
+    },
+    {
+      "id": "cha",
+      "name": "সংযোজনী-চ",
+      "title": "Revised Development Project Proposal (RDPP)",
+      "page_start": 107,
+      "page_end": 118,
+      "description": "English format for RDPP",
+      "keywords": ["RDPP", "Revised", "English"]
+    },
+    {
+      "id": "chha",
+      "name": "সংযোজনী-ছ",
+      "title": "Technical Assistance Project Proposal (TAPP)",
+      "page_start": 119,
+      "page_end": 133,
+      "description": "কারিগরি সহায়তা প্রকল্প প্রস্তাব",
+      "keywords": ["TAPP", "টিএপিপি", "কারিগরি সহায়তা"]
+    },
+    {
+      "id": "ja",
+      "name": "সংযোজনী-জ",
+      "title": "কারিগরি প্রকল্প প্রস্তাব (টিপিপি)",
+      "page_start": 134,
+      "page_end": 147,
+      "description": "কারিগরি প্রকল্প প্রস্তাব",
+      "keywords": ["TPP", "টিপিপি", "কারিগরি প্রকল্প"]
+    },
+    {
+      "id": "jha",
+      "name": "সংযোজনী-ঝ",
+      "title": "Revised Technical Assistance Project Proposal (RTAPP)",
+      "page_start": 148,
+      "page_end": 155,
+      "description": "সংশোধিত কারিগরি সহায়তা প্রকল্প প্রস্তাব",
+      "keywords": ["RTAPP", "সংশোধিত", "কারিগরি সহায়তা"]
+    },
+    {
+      "id": "nya",
+      "name": "সংযোজনী-ঞ",
+      "title": "সংশোধিত কারিগরি প্রকল্প প্রস্তাব (আরটিপিপি)",
+      "page_start": 156,
+      "page_end": 163,
+      "description": "সংশোধিত কারিগরি প্রকল্প প্রস্তাব",
+      "keywords": ["RTPP", "আরটিপিপি", "সংশোধিত কারিগরি"]
+    },
+    {
+      "id": "ta",
+      "name": "সংযোজনী-ট",
+      "title": "Project Proposal for Feasibility Study (PFS)",
+      "page_start": 164,
+      "page_end": 167,
+      "description": "সম্ভাব্যতা সমীক্ষা প্রকল্প প্রস্তাব",
+      "keywords": ["PFS", "সমীক্ষা প্রকল্প"]
+    },
+    {
+      "id": "tha",
+      "name": "সংযোজনী-ঠ",
+      "title": "Revised Project Proposal for Feasibility Study (RPFS)",
+      "page_start": 168,
+      "page_end": 173,
+      "description": "সংশোধিত সম্ভাব্যতা সমীক্ষা প্রকল্প",
+      "keywords": ["RPFS", "সংশোধিত সমীক্ষা"]
+    },
+    {
+      "id": "da",
+      "name": "সংযোজনী-ড",
+      "title": "Preliminary Development Project Proposal (PDPP) for Foreign Financed Projects",
+      "page_start": 174,
+      "page_end": 174,
+      "description": "বৈদেশিক অর্থায়নে প্রাথমিক প্রকল্প প্রস্তাব",
+      "keywords": ["PDPP", "বৈদেশিক", "Preliminary"]
+    },
+    {
+      "id": "dha",
+      "name": "সংযোজনী-ঢ",
+      "title": "Operational Plan (OP)",
+      "page_start": 175,
+      "page_end": 187,
+      "description": "সেক্টর কর্মসূচির অপারেশনাল প্ল্যান",
+      "keywords": ["OP", "Operational Plan", "সেক্টর"]
+    },
+    {
+      "id": "na",
+      "name": "সংযোজনী-ণ",
+      "title": "Program Implementation Plan (PIP)",
+      "page_start": 188,
+      "page_end": 194,
+      "description": "কর্মসূচি বাস্তবায়ন পরিকল্পনা",
+      "keywords": ["PIP", "Program", "কর্মসূচি"]
+    },
+    {
+      "id": "pa",
+      "name": "সংযোজনী-প",
+      "title": "Revised Operational Plan (ROP)",
+      "page_start": 195,
+      "page_end": 206,
+      "description": "সংশোধিত অপারেশনাল প্ল্যান",
+      "keywords": ["ROP", "Revised Operational"]
+    },
+    {
+      "id": "pha",
+      "name": "সংযোজনী-ফ",
+      "title": "Revised Programme Implementation Plan (RPIP)",
+      "page_start": 207,
+      "page_end": 215,
+      "description": "সংশোধিত কর্মসূচি বাস্তবায়ন পরিকল্পনা",
+      "keywords": ["RPIP", "Revised Programme"]
+    },
+    {
+      "id": "ba",
+      "name": "সংযোজনী-ব",
+      "title": "Project Scrutiny Committee",
+      "page_start": 216,
+      "page_end": 216,
+      "description": "প্রকল্প যাচাই কমিটি",
+      "keywords": ["Project Scrutiny Committee", "যাচাই কমিটি"]
+    },
+    {
+      "id": "bha",
+      "name": "সংযোজনী-ভ",
+      "title": "Project Evaluation Committee (PEC)",
+      "page_start": 217,
+      "page_end": 217,
+      "description": "প্রকল্প মূল্যায়ন কমিটি",
+      "keywords": ["PEC", "মূল্যায়ন কমিটি"]
+    },
+    {
+      "id": "ma",
+      "name": "সংযোজনী-ম",
+      "title": "Departmental Project Evaluation Committee (DPEC)",
+      "page_start": 218,
+      "page_end": 218,
+      "description": "বিভাগীয় প্রকল্প মূল্যায়ন কমিটি",
+      "keywords": ["DPEC", "Departmental", "বিভাগীয়"]
+    },
+    {
+      "id": "ya",
+      "name": "সংযোজনী-য",
+      "title": "Special Project Evaluation Committee (SPEC)",
+      "page_start": 219,
+      "page_end": 219,
+      "description": "বিশেষ প্রকল্প মূল্যায়ন কমিটি",
+      "keywords": ["SPEC", "বিশেষ প্রকল্প"]
+    },
+    {
+      "id": "ra",
+      "name": "সংযোজনী-র",
+      "title": "Departmental Special Project Evaluation Committee (DSPEC)",
+      "page_start": 220,
+      "page_end": 220,
+      "description": "বিভাগীয় বিশেষ প্রকল্প মূল্যায়ন কমিটি",
+      "keywords": ["DSPEC", "Departmental Special"]
+    },
+    {
+      "id": "la",
+      "name": "সংযোজনী-ল",
+      "title": "প্রকল্প বাস্তবায়ন কমিটি (পিআইসি)",
+      "page_start": 221,
+      "page_end": 221,
+      "description": "Project Implementation Committee",
+      "keywords": ["PIC", "পিআইসি", "বাস্তবায়ন কমিটি"]
+    },
+    {
+      "id": "sha",
+      "name": "সংযোজনী-শ",
+      "title": "প্রকল্প স্টিয়ারিং কমিটি (পিএসসি)",
+      "page_start": 222,
+      "page_end": 222,
+      "description": "Project Steering Committee",
+      "keywords": ["PSC", "পিএসসি", "স্টিয়ারিং কমিটি"]
+    },
+    {
+      "id": "sa",
+      "name": "সংযোজনী-স",
+      "title": "আন্তঃমন্ত্রণালয় প্রোগ্রামিং কমিটি",
+      "page_start": 223,
+      "page_end": 224,
+      "description": "Inter-Ministerial Programming Committee",
+      "keywords": ["Inter-Ministerial", "Programming", "প্রোগ্রামিং কমিটি"]
+    },
+    {
+      "id": "ha",
+      "name": "সংযোজনী-হ",
+      "title": "একনেক সভার সার-সংক্ষেপ",
+      "page_start": 225,
+      "page_end": 226,
+      "description": "Executive Committee of NEC (ECNEC)",
+      "keywords": ["ECNEC", "একনেক", "সার-সংক্ষেপ"]
+    },
+    {
+      "id": "ra2",
+      "name": "সংযোজনী-ড়",
+      "title": "পিইসি/ডিপিইসি/এসপিইসি সভার কার্যপত্র",
+      "page_start": 234,
+      "page_end": 235,
+      "description": "কমিটি সভার কার্যপত্র",
+      "keywords": ["কার্যপত্র", "Agenda", "Committee"]
+    },
+    {
+      "id": "a",
+      "name": "সংযোজনী-অ",
+      "title": "একনেক কর্তৃক অনুমোদিত প্রকল্পের অনুমোদন পত্র",
+      "page_start": 237,
+      "page_end": 237,
+      "description": "ECNEC Approval Letter",
+      "keywords": ["Approval", "ECNEC", "অনুমোদন পত্র"]
+    },
+    {
+      "id": "aa",
+      "name": "সংযোজনী-আ",
+      "title": "মন্ত্রণালয়/বিভাগ কর্তৃক জারির জন্য প্রশাসনিক আদেশ",
+      "page_start": 238,
+      "page_end": 238,
+      "description": "Administrative Order Format",
+      "keywords": ["Administrative Order", "প্রশাসনিক আদেশ"]
+    }
+  ]
+}
